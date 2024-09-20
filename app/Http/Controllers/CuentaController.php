@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Proveedor;
+use App\Models\proveedor;
 use App\Models\cuenta;
 use App\Models\perfile;
 
@@ -36,7 +36,7 @@ class cuentaController extends Controller
      */
     public function create()
 {
-    $proveedores = Proveedor::all();
+    $proveedores = proveedor::all();
     return view('cuentas.crear', compact('proveedores'));
 }
 public function ver_perfiles(Request $request)
