@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cliente;
+use App\Models\cliente;
 use App\Models\perfile;
 use Carbon\Carbon;
 
@@ -36,7 +36,7 @@ class perfileController extends Controller
      */
     public function create(Request $request)
 {   $id=$request->input('id_cuenta');
-    $clientes = Cliente::all();
+    $clientes = cliente::all();
     
     return view('perfiles.crear', compact('clientes','id'));
 }
