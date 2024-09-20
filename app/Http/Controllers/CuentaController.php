@@ -41,11 +41,15 @@ class cuentaController extends Controller
 }
 public function ver_perfiles(Request $request)
 {
+    
     $id=$request->input('id_cuenta');
+    if($id==null){
+        $id = session('id_cuenta');
+    }
     // Asumiendo que tienes un modelo 'Perfil' y una relación con 'Cuenta'
     // Puedes obtener los perfiles asociados al ID de la cuenta de la siguiente manera:
     $perfiles = perfile::where('id_cuenta', $id)->get();
-
+    
     // Usar compact para devolver los perfiles
     return view('cuentas.ver_perfiles', compact('perfiles','id'));
 }

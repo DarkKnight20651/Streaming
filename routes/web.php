@@ -32,6 +32,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/cuentas/perfiles', [CuentaController::class, 'ver_perfiles'])->name('cuentas.ver_perfiles');
 Route::get('perfiles/create/{id_cuenta}', [PerfileController::class, 'create'])->name('perfiles.create');
+Route::get('perfiles/renew/', [PerfileController::class, 'renew'])->name('perfiles.renew');
 
 //y creamos un grupo de rutas protegidas para los controladores
 Route::group(['middleware' => ['auth']], function() {

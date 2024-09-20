@@ -10,8 +10,10 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
+                        
 
                         @php
+                        
     use Carbon\Carbon;
 @endphp
                         
@@ -66,6 +68,11 @@
                                         <button type="submit" class="btn btn-danger">Borrar</button>
                                       
                                     </form>
+                                    {!! Form::open(['route' => 'perfiles.renew', 'method' => 'GET']) !!}                         
+                                                        {!! Form::hidden('id_perfil', $perfile->id)!!}
+                                                        
+                                                        {!! Form::submit('Renovar', ['class' => 'btn btn-warning w-500']) !!}
+                                                    {!! Form::close() !!}
                                 </td>
                             </tr>
                             @endforeach

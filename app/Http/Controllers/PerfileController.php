@@ -24,7 +24,7 @@ class perfileController extends Controller
     public function index()
     {
         // Cargar los perfiles con las relaciones de cuenta y cliente usando Eager Loading
-        $perfiles = Perfile::with(['cuenta', 'cliente'])->paginate(5);
+        $perfiles = perfile::with(['cuenta', 'cliente'])->paginate(5);
 
         return view('perfiles.index', compact('perfiles'));
     }
@@ -62,7 +62,7 @@ public function store(Request $request)
 
     // Calcular la fecha de vencimiento
     $fecha_vencimiento = Carbon::now()->addDays(30);
-
+    $id_cuenta = $request->id_cuenta;
     $perfil = new Perfile();
     $perfil->id_cuenta = $request->id_cuenta;
     $perfil->nombre = $request->nombre;
@@ -71,9 +71,9 @@ public function store(Request $request)
     $perfil->pagado = $request->pagado;
     $perfil->dias_restantes = $request->dias_restantes;
     $perfil->id_usuario = $request->id_usuario;
-
+     
     $perfil->save();
-    return redirect()->route('cuentas.index');
+    return redirect()->route('cuentas.ver_perfiles')->with('id_cuenta',$id_cuenta);
 }
 
     /**
@@ -125,8 +125,21 @@ public function store(Request $request)
      */
     public function destroy(perfile $perfile)
     {
+        $id_cuenta=$perfile->id_cuenta;
         $perfile->delete();
 
-        return redirect()->route('perfiles.index');
+        return redirect()->route('cuentas.ver_perfiles')->with('id_cuenta',$id_cuenta);
+    }
+    public function renew(Request $request)
+    {
+        $id_perfil=$request->id_perfil;
+        
+        $perfil = perfile::find($id_perfil);
+        $id_cuenta=$perfil->id_cuenta;
+        $perfil->dias_restantes = Carbon::parse($perfil->dias_restantes)->addDays(30);
+
+        // Guarda los cambios en la base de datos
+        $perfil->save();
+        return redirect()->route('cuentas.ver_perfiles')->with('id_cuenta',$id_cuenta);
     }
 }

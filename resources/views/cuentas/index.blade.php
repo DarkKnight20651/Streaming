@@ -45,7 +45,7 @@
                                     {!! Form::open(['route' => 'cuentas.ver_perfiles', 'method' => 'GET']) !!}                         
                                                         {!! Form::hidden('id_cuenta', $cuenta->id)!!}
                                                         
-                                                        {!! Form::submit('Ver Perfiles', ['class' => 'btn btn-warning w-100']) !!}
+                                                        {!! Form::submit('Ver Perfiles', ['class' => 'btn btn-warning w-80']) !!}
                                                     {!! Form::close() !!}
                                 </td>
                             </tr>
