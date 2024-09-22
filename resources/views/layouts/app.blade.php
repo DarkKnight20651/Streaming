@@ -8,9 +8,10 @@
     <!-- Bootstrap 4.1.1 -->
     <link href="{{ secure_asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- Ionicons -->
-    <link href="//fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
     <link href="{{ secure_asset('assets/css/@fortawesome/fontawesome-free/css/all.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{{ asset('assets/css/iziToast.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/iziToast.min.css') }}">
     <link href="{{secure_asset('assets/css/sweetalert.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{secure_asset('assets/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
 
