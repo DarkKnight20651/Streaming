@@ -17,28 +17,40 @@
                         
 
                         <table class="table table-striped mt-2 table_id" id="miTabla">
-                                <thead style="background-color:#6777ef">
+                        <thead style="background-color:#6777ef">
                                     <th style="display: none;">ID</th>
                                     <th style="color:#fff;">Cuenta Principal</th>
                                     <th style="color:#fff;">Pin</th>
                                     <th style="color:#fff;">Nombre</th>
                                     <th style="color:#fff;">Usuario</th>
                                     <th style="color:#fff;">Fecha de vencimiento</th>
-                                    <th style="color:#fff;">Precio</th>
+                                    
                                     <th style="color:#fff;">Pagado</th>
                                     <th style="color:#fff;">Acciones</th>
                               </thead>
                               <tbody>
-                            @foreach ($perfiles as $perfile)
+                              @php
+                        
+                        use Carbon\Carbon;
+                    @endphp
+                              @foreach ($perfiles as $perfile)
                             <tr>
                                 <td style="display: none;">{{ $perfile->id }}</td>
-                                <td>{{ $perfile->id_cuenta }}</td>
+                                <td>{{ $perfile->cuenta->plataforma }} <br>Correo: {{ $perfile->cuenta->correo }} <br>Contraseña: {{ $perfile->cuenta->contrasena }} <br>Perfil: {{ $perfile->nombre }} <br>Vencimiento: {{ $perfile->dias_restantes }}</td>
                                 <td>{{ $perfile->pin }}</td>
                                 <td>{{ $perfile->nombre }}</td>
-                                <td>{{ $perfile->id_usuario }}</td>
+                                <td>{{ $perfile->cliente->nombre }}  {{ $perfile->cliente->numero }}</td>
                                 <td>{{ $perfile->dias_restantes }}</td>
-                                <td>{{ $perfile->precio }}</td>
-                                <td>{{ $perfile->pagado }}</td>
+                                
+                                <td> @php
+                $fecha_actual = Carbon::now();
+                $dias_restantes = Carbon::parse($perfile->dias_restantes)->diffInDays($fecha_actual, false);
+            @endphp
+            @if($dias_restantes < 0)
+                <span style="color: green;">&#x2714;</span> <!-- Icono verde -->
+            @else
+                <span style="color: red;">&#x2716;</span> <!-- Icono rojo -->
+            @endif</td>
                                 <td>
                                     <form action="{{ route('perfiles.destroy',$perfile->id) }}" method="POST">
                                        
@@ -51,6 +63,11 @@
                                         <button type="submit" class="btn btn-danger">Borrar</button>
                                       
                                     </form>
+                                    {!! Form::open(['route' => 'perfiles.renew', 'method' => 'GET']) !!}                         
+                                                        {!! Form::hidden('id_perfil', $perfile->id)!!}
+                                                        
+                                                        {!! Form::submit('Renovar', ['class' => 'btn btn-warning w-500']) !!}
+                                                    {!! Form::close() !!}
                                 </td>
                             </tr>
                             @endforeach
@@ -76,8 +93,8 @@
     <script>
         new DataTable('#miTabla', {
     lengthMenu: [
-        [2, 5, 10],
-        [2, 5, 10]
+        [10, 15, 20],
+        [10, 15, 20]
     ],
 
     columns: [
@@ -87,7 +104,7 @@
     { Direccion: 'Nombre' },
     { Usuario: 'Usuario' },
     { FechaVencimiento: 'Fecha de vencimiento' },
-    { Precio: 'Precio' },
+   
     { Pagado: 'Pagado' },
     { Acciones: 'Acciones' }
 ]

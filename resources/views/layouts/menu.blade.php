@@ -12,5 +12,7 @@
         <i class=" fas fa-user-lock"></i><span>Clientes</span>
     </a>
     @endcan
-    
+    <a class="nav-link" href="/perfiles">
+        <i class=" fas fa-user-lock"></i><span>Perfiles</span>
+    </a>
 </li>

@@ -24,7 +24,7 @@ class perfileController extends Controller
     public function index()
     {
         // Cargar los perfiles con las relaciones de cuenta y cliente usando Eager Loading
-        $perfiles = perfile::with(['cuenta', 'cliente'])->paginate(5);
+        $perfiles = perfile::with(['cuenta', 'cliente'])->get();
 
         return view('perfiles.index', compact('perfiles'));
     }
