@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\cliente;
 use App\Models\perfile;
+use App\Models\user;
 use Carbon\Carbon;
 
 class perfileController extends Controller
@@ -95,7 +96,8 @@ public function store(Request $request)
      */
     public function edit(perfile $perfile)
     {
-        return view('perfiles.editar',compact('perfile'));
+        $clientes = cliente::all();
+        return view('perfiles.editar',compact('perfile','clientes'));
     }
 
     /**
@@ -108,8 +110,7 @@ public function store(Request $request)
     public function update(Request $request, perfile $perfile)
     {
          request()->validate([
-            'titulo' => 'required',
-            'contenido' => 'required',
+            
         ]);
 
         $perfile->update($request->all());

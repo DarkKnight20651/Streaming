@@ -90,7 +90,8 @@ public function ver_perfiles(Request $request)
      */
     public function edit(cuenta $cuenta)
     {
-        return view('cuentas.editar',compact('cuenta'));
+        $proveedores = proveedor::all();
+        return view('cuentas.editar',compact('cuenta','proveedores'));
     }
 
     /**
@@ -103,8 +104,7 @@ public function ver_perfiles(Request $request)
     public function update(Request $request, cuenta $cuenta)
     {
          request()->validate([
-            'titulo' => 'required',
-            'contenido' => 'required',
+           
         ]);
 
         $cuenta->update($request->all());

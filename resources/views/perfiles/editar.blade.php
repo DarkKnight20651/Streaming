@@ -3,7 +3,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h3 class="page__heading">Crear Perfil</h3>
+        <h3 class="page__heading">Editar perfile</h3>
     </div>
     <div class="section-body">
         <div class="row">
@@ -23,46 +23,35 @@
                         </div>
                         @endif
 
-                        <form action="{{ route('perfiles.store') }}" method="POST">
+                        <form action="{{ route('perfiles.update', $perfile->id) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             <div class="row">
+                                <!-- Campo ID perfile -->
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <label for="id_cuenta">Id Cuenta</label>
-                                        <input type="number" name="id_cuenta" class="form-control" value="{{ $id }}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre</label>
-                                        <input type="text" name="nombre" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <label for="pin">Pin</label>
-                                        <input type="number" name="pin" class="form-control" required>
+                                        <label for="id_perfile">ID perfile</label>
+                                        <input type="text" name="id_perfile" class="form-control" value="{{ $perfile->id }}">
                                     </div>
                                 </div>
 
+                                <!-- Campo PIN -->
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <label for="dias_restantes">Fecha de Vencimiento</label>
-                                        <input type="date" name="dias_restantes" class="form-control" value="{{ date('Y-m-d', strtotime('+30 days')) }}" requiered>
+                                        <label for="pin">PIN</label>
+                                        <input type="text" name="pin" class="form-control" value="{{ $perfile->pin }}">
                                     </div>
                                 </div>
+
+                                <!-- Campo Nombre -->
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <label for="precio">Precio</label>
-                                        <input type="number" name="precio" class="form-control" required>
+                                        <label for="nombre">Nombre</label>
+                                        <input type="text" name="nombre" class="form-control" value="{{ $perfile->nombre }}">
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <label for="pagado">Pagado</label>
-                                        <input type="number" name="pagado" class="form-control" required>
-                                    </div>
-                                </div>
+
+                                <!-- Campo ID Usuario -->
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <label for="search_cliente">Buscar Cliente</label>
@@ -74,12 +63,40 @@
                                         <label for="id_usuario">Cliente</label>
                                         <select name="id_usuario" id="id_usuario" class="form-control" required>
                                             @foreach($clientes as $cliente)
-                                            <option value="{{ $cliente->id }}">{{ $cliente->numero }} {{ $cliente->nombre }}</option>
+                                            <option value="{{ $cliente->id }}" {{ $cliente->id == $perfile->id_usuario ? 'selected' : '' }}>
+                                                {{ $cliente->numero }} {{ $cliente->nombre }}
+                                            </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
 
+
+                                <!-- Campo Días Restantes -->
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="dias_restantes">Días Restantes</label>
+                                        <input type="date" name="dias_restantes" class="form-control" value="{{ \Carbon\Carbon::parse($perfile->dias_restantes)->format('Y-m-d') }}">
+                                    </div>
+                                </div>
+
+                                <!-- Campo Precio -->
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="precio">Precio</label>
+                                        <input type="number" name="precio" class="form-control" value="{{ $perfile->precio }}">
+                                    </div>
+                                </div>
+
+                                <!-- Campo Pagado -->
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="pagado">Pagado</label>
+                                        <input type="number" name="pagado" class="form-control" value="{{ $perfile->pagado }}">
+                                    </div>
+                                </div>
+
+                                <br>
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </form>
@@ -90,19 +107,4 @@
         </div>
     </div>
 </section>
-
-<script>
-    document.getElementById('search_cliente').addEventListener('input', function() {
-        const searchValue = this.value.toLowerCase();
-        const select = document.getElementById('id_usuario');
-        const options = select.getElementsByTagName('option');
-
-        for (let i = 0; i < options.length; i++) {
-            const option = options[i];
-            const text = option.textContent.toLowerCase();
-            option.style.display = text.includes(searchValue) ? '' : 'none';
-        }
-    });
-</script>
-
 @endsection
