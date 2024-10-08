@@ -17,7 +17,7 @@
                         
 
                         <table class="table table-striped mt-2 table_id" id="miTabla">
-                        <thead style="background-color:#6777ef">
+                        <thead style="background: linear-gradient(45deg,#070f4b, #000000)">
                                     <th style="display: none;">ID</th>
                                     <th style="color:#fff;">Cuenta Principal</th>
                                     <th style="color:#fff;">Pin</th>
@@ -28,7 +28,7 @@
                                     <th style="color:#fff;">Pagado</th>
                                     <th style="color:#fff;">Acciones</th>
                               </thead>
-                              <tbody>
+                              <tbody >
                               @php
                         
                         use Carbon\Carbon;

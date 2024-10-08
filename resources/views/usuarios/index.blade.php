@@ -27,7 +27,7 @@
 
 
                             <table class="table table-striped mt-2 table_id" id="miTabla">
-                              <thead style="background-color:#6777ef">
+                              <thead style="background: linear-gradient(45deg,#070f4b, #000000)">
                                   <th style="display: none;">ID</th>
                                   <th style="color:#fff;">Nombre</th>
                                   <th style="color:#fff;">Correo electronico</th>

@@ -22,12 +22,13 @@ class cuentaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-         //Con paginación
-         $cuentas = cuenta::all();
-         return view('cuentas.index',compact('cuentas'));
-         //al usar esta paginacion, recordar poner en el el index.blade.php este codigo  {!! $cuentas->links() !!}
-    }
+{
+    // Obtener todas las cuentas con la cantidad de perfiles relacionados usando paginación
+    $cuentas = Cuenta::withCount('perfiles')->get(); // Cambia 10 por el número de registros que desees por página
+
+    return view('cuentas.index', compact('cuentas'));
+}
+
 
     /**
      * Show the form for creating a new resource.

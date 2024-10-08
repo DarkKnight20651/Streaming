@@ -17,4 +17,8 @@ class cuenta extends Model
         'dias_restantes',
         'contrasena',
     ];
+    public function perfiles()
+    {
+        return $this->hasMany(perfile::class, 'id_cuenta'); // Asegúrate de que 'cuenta_id' sea la clave foránea correcta
+    }
 }
